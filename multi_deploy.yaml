@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: ravi-deploy
+  labels: 
+    name: ravi-label
+    type: ravi-type
+  namespace: ravi-ns
+spec: 
+  template: 
+    metadata:
+      name: nginx
+      labels:
+        name: ravi-label
+        type: ravi-type
+      namespace: ravi-ns
+
+    spec:
+      containers:
+        - name: nginx-demo
+          image: nginx
+      nodeSelector:
+         type: ravi-type
+
+  replicas: 3
+  selector: 
+    matchLabels: 
+      name: ravi-label
+      type: ravi-type
+---
+spec: 
+  template: 
+    metadata:
+      name: httpd 
+      labels:
+        name: ravi-label
+        type: ravi-type
+      namespace: ravi-ns
+
+    spec:
+      containers:
+        - name: httpd-demo
+          image: httpd
+      nodeSelector:
+         type: ravi-type
+
+  replicas: 3
+  selector: 
+    matchLabels: 
+      name: ravi-label
+      type: ravi-type

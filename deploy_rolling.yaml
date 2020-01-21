@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ravi-service
+  namespace: ravi-ns
+spec:
+  type: NodePort
+  selector:
+    name: ravi-label
+    type: ravi-type
+  ports:
+   - protocol: TCP
+     port: 81
+     targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: ravi-deploy
+  labels: 
+    name: ravi-label
+    type: ravi-type
+  namespace: ravi-ns
+spec: 
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate: 
+      maxUnavailable: 1
+  template: 
+    metadata:
+      name: httpd_ravi
+      labels:
+        name: ravi-label
+        type: ravi-type
+      namespace: ravi-ns
+
+    spec:
+      containers:
+        - name: httpd-demo
+          image: yogeshraheja/yogeshk8stest
+
+      nodeSelector:
+         type: ravi-type
+
+  replicas: 2
+  selector: 
+    matchLabels: 
+      name: ravi-label
+      type: ravi-type
+
