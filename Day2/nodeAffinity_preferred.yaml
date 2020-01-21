@@ -5,22 +5,14 @@ metadata:
 spec:
   affinity:
     nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: label
-            operator: In
-            values:
-            - ravi-label1
-            - ravi-label
       preferredDuringSchedulingIgnoredDuringExecution:
       - weight: 1
         preference:
            matchExpressions:
-           - key: another-node-label-key
+           - key: label
              operator: In
              values:
-             - another-node-label-value
+             - ravi-label1
   containers:
   - name: with-node-affinity
     image: k8s.gcr.io/pause:2.0
