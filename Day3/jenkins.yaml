@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+  namespace: ravi-ns
+spec:
+  type: NodePort
+  ports:
+  - targetPort: 8080
+    port: 8080
+  selector:
+    app: jenkins
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkins
+  namespace: ravi-ns
+  labels:
+    app: jenkins
+spec:
+  containers:
+  - name: jenkins
+    image: jenkins/jenkins:lts
+    volumeMounts:
+    - name: jenkins-home
+      mountPath: /var/jenkins_home
+  volumes:
+  - name: jenkins-home
+    emptyDir: {}
+

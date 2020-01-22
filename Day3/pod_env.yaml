@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: ravi-pod
+  namespace: ravi-ns
+spec:
+  containers: 
+    - name: env-demo
+      image: bash
+      env:
+      - name: DEMO_VARIABLE
+        value: "Test env variable"
+      command: ["echo"]
+      args: ["$(DEMO_VARIABLE)"]
+
