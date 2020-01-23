@@ -1,0 +1,22 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: ravi-ns
+  name: pod-and-pod-logs-reader
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/log"]
+  verbs: ["get", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: ravi-ns
+  name: configmap-reader
+rules:
+- apiGroups: [""]
+  resources: ["config-maps"]
+  resourceNames: ["my-configmap"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+   
