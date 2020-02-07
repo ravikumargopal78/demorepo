@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: ravi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: worker
+  template:
+    metadata:
+      name: worker
+      namespace: ravi
+      labels:
+        name: worker
+    spec:
+      containers:
+      - name: worker-container
+        image: ravikumargopal/worker-ravi

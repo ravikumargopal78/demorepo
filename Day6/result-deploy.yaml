@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result
+  namespace: ravi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: result
+  template:
+    metadata:
+      name: result
+      namespace: ravi
+      labels:
+        name: result
+    spec:
+      containers:
+      - name: result-container
+        image: ravikumargopal/result-ravi

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+  namespace: ravi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: jenkins
+  template:
+    metadata:
+      name: jenkins
+      namespace: ravi
+      labels:
+        name: jenkins
+    spec:
+      volumes:
+      - name: jenkins-pv-storage
+        persistentVolumeClaim:
+          claimName: pv-claim
+      containers:
+      - name: jenkins-pv-container
+        image: jenkins/jenkins:lts
+        volumeMounts:
+        - mountPath: "/var/jenkins_home"
+          name: jenkins-pv-storage
+
